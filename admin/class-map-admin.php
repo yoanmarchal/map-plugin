@@ -209,6 +209,7 @@ class map_plugin_Admin
                     isset($this->options['facebook']) ? esc_url($this->options['facebook']) : ''
             );
     }
+
     public function cpt_store_init()
     {
         $labels = [
@@ -249,40 +250,55 @@ class map_plugin_Admin
         ];
         register_post_type('store', $args);
 
-        add_action('add_meta_boxes','init_metabox');
-        function init_metabox(){
-          add_meta_box('store_infos', 'Informations sur la boutique', 'store_infos', 'store', 'advanced', 'high');
+        add_action('add_meta_boxes', 'init_metabox');
+
+        function init_metabox()
+        {
+            add_meta_box('store_infos', 'Informations sur la boutique', 'store_infos', 'store', 'advanced', 'high');
         }
 
-        function store_infos($post){
-          $first_name      = get_post_meta($post->ID,'_first_name',true);
-          $last_name   = get_post_meta($post->ID,'_last_name',true);
-          $civility = get_post_meta($post->ID,'_civility',true);
-          $adresse  = get_post_meta($post->ID,'_adresse',true);
-          $mail     = get_post_meta($post->ID,'_mail',true);
-          $phone      = get_post_meta($post->ID,'_phone',true);
+        function store_infos($post)
+        {
+            $first_name = get_post_meta($post->ID, '_first_name', true);
+            $last_name = get_post_meta($post->ID, '_last_name', true);
+            $civility = get_post_meta($post->ID, '_civility', true);
+            $adresse = get_post_meta($post->ID, '_adresse', true);
+            $mail = get_post_meta($post->ID, '_mail', true);
+            $phone = get_post_meta($post->ID, '_phone', true);
 
-          $coords = get_post_meta( $post->ID, '_coords', true );
-          $coordonnes_definies = get_post_meta( $post->ID, '_defined_coords', true );
-          ?>
+            $coords = get_post_meta($post->ID, '_coords', true);
+            $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
+            ?>
           <p>
-            <input type="text" name="civility" value="<?php echo $civility; ?>" placeholder="<?= __('Civility', 'map-plugin'); ?>"/>
-            <input type="text" name="last_name" value="<?php echo $last_name; ?>" placeholder="<?= __('First name', 'map-plugin'); ?>"/>
+            <input type="text" name="civility" value="<?php echo $civility;
+            ?>" placeholder="<?= __('Civility', 'map-plugin');
+            ?>"/>
+            <input type="text" name="last_name" value="<?php echo $last_name;
+            ?>" placeholder="<?= __('First name', 'map-plugin');
+            ?>"/>
           </p>
 
           <p>
-            <input type="text" name="first_name" value="<?php echo $first_name; ?>" placeholder="<?= __('Last name', 'map-plugin'); ?>"/>
+            <input type="text" name="first_name" value="<?php echo $first_name;
+            ?>" placeholder="<?= __('Last name', 'map-plugin');
+            ?>"/>
           </p>
           <p>
-            <textarea id="" style="width: 250px;" name="_adress"><?php echo $adresse; ?></textarea>
-            <input id="gps_coords" style="width: 250px;" type="text" name="_coords" value="<?php echo $coords['lat'].' , '.$coords['long']; ?>" disabled="disabled" />
+            <textarea id="" style="width: 250px;" name="_adress"><?php echo $adresse;
+            ?></textarea>
+            <input id="gps_coords" style="width: 250px;" type="text" name="_coords" value="<?php echo $coords['lat'].' , '.$coords['long'];
+            ?>" disabled="disabled" />
             <input type="checkbox" name="defined_coords" checked="checked" value="1" id="defined_coords"> <label for="defined_coords">Coordonnées définies manuellement</label>
           </p>
           <p>
-            <input type="text" name="mail" value="<?php echo $mail; ?>" placeholder="<?= __('Email', 'map-plugin'); ?>" />
+            <input type="text" name="mail" value="<?php echo $mail;
+            ?>" placeholder="<?= __('Email', 'map-plugin');
+            ?>" />
           </p>
           <p>
-            <input type="text" name="phone" value="<?php echo $phone; ?>" placeholder="<?= __('Phone', 'map-plugin'); ?>" />
+            <input type="text" name="phone" value="<?php echo $phone;
+            ?>" placeholder="<?= __('Phone', 'map-plugin');
+            ?>" />
           </p>
           <script type="text/javascript">// <![CDATA[
             jQuery(document).ready(function($){
@@ -300,63 +316,70 @@ class map_plugin_Admin
 
           // ]]></script>
           <?php
+
         }
 
-        add_action('save_post','save_metabox');
-        function save_metabox($post_id){
-          if(isset($_POST['civility'])){
-            update_post_meta($post_id, '_civility', sanitize_text_field($_POST['civility']));
-          }
-          if(isset($_POST['last_name'])){
-            update_post_meta($post_id, '_last_name', sanitize_text_field($_POST['last_name']));
-          }
-          if(isset($_POST['first_name'])){
-            update_post_meta($post_id, '_first_name', sanitize_text_field($_POST['first_name']));
-          }
-          if(isset($_POST['mail'])){
-            update_post_meta($post_id, '_mail', is_email($_POST['mail']));
-          }
-          if(isset($_POST['phone'])){
-            update_post_meta($post_id, '_phone', esc_html($_POST['phone']));
-          }
+        add_action('save_post', 'save_metabox');
 
-          if( isset( $_POST[ '_adress' ] ) ) {
-            $adresse = wp_strip_all_tags( $_POST[ '_adress' ] );
-            update_post_meta( $post_id, '_adresse', $adresse );
-            function get_coords( $a ) {
-              $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($a).'&sensor=false';
-              $request = wp_remote_get( $map_url );
-              $json = wp_remote_retrieve_body( $request );
-
-              if( empty( $json ) )
-                return false;
-
-              $json = json_decode( $json );
-              $lat = $json->results[ 0 ]->geometry->location->lat;
-              $long = $json->results[ 0 ]->geometry->location->lng;
-              return compact( 'lat', 'long' );
+        function save_metabox($post_id)
+        {
+            if (isset($_POST['civility'])) {
+                update_post_meta($post_id, '_civility', sanitize_text_field($_POST['civility']));
             }
+            if (isset($_POST['last_name'])) {
+                update_post_meta($post_id, '_last_name', sanitize_text_field($_POST['last_name']));
+            }
+            if (isset($_POST['first_name'])) {
+                update_post_meta($post_id, '_first_name', sanitize_text_field($_POST['first_name']));
+            }
+            if (isset($_POST['mail'])) {
+                update_post_meta($post_id, '_mail', is_email($_POST['mail']));
+            }
+            if (isset($_POST['phone'])) {
+                update_post_meta($post_id, '_phone', esc_html($_POST['phone']));
+            }
+
+            if (isset($_POST['_adress'])) {
+                $adresse = wp_strip_all_tags($_POST['_adress']);
+                update_post_meta($post_id, '_adresse', $adresse);
+
+                function get_coords($a)
+                {
+                    $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($a).'&sensor=false';
+                    $request = wp_remote_get($map_url);
+                    $json = wp_remote_retrieve_body($request);
+
+                    if (empty($json)) {
+                        return false;
+                    }
+
+                    $json = json_decode($json);
+                    $lat = $json->results[0]->geometry->location->lat;
+                    $long = $json->results[0]->geometry->location->lng;
+
+                    return compact('lat', 'long');
+                }
 
             //je récupère ma checkbox
-            $coordonnes_definies = $_POST[ 'defined_coords' ];
-            if( $coordonnes_definies == 1 ) { //si checkbox cochée...
+            $coordonnes_definies = $_POST['defined_coords'];
+                if ($coordonnes_definies == 1) { //si checkbox cochée...
               // je sauvegarde sa valeur
-              update_post_meta( $post_id, '_defined_coords', 1 );
+              update_post_meta($post_id, '_defined_coords', 1);
               //je construis un tableu à partir des coordonnées de l'utilisateur
-              $user_coords = explode( ',', trim( $_POST[ '_coords' ] ) );
-              $coords = array( 'lat' => $user_coords[ 0 ], 'long' => $user_coords[ 1 ] );
+              $user_coords = explode(',', trim($_POST['_coords']));
+                    $coords = ['lat' => $user_coords[0], 'long' => $user_coords[1]];
               // j'update les coordonnées définies par l'utilisateur
-              update_post_meta( $post_id, '_coords', $coords );
-            }else{ // sinon...
+              update_post_meta($post_id, '_coords', $coords);
+                } else { // sinon...
               //j'update sa valeur
-              update_post_meta( $post_id, '_defined_coords', 0 );
+              update_post_meta($post_id, '_defined_coords', 0);
               // je fais le taf' normal
-              $coords = get_coords( $adresse );
-              if( $coords != '' )
-                update_post_meta( $post_id, '_coords', $coords );
+              $coords = get_coords($adresse);
+                    if ($coords != '') {
+                        update_post_meta($post_id, '_coords', $coords);
+                    }
+                }
             }
-          }
         }
-
     }
 }

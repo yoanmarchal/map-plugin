@@ -41,7 +41,7 @@ class map_plugin_Public
      * @since    1.0.0
      *
      * @param string $map_plugin The name of the plugin.
-     * @param string $version     The version of this plugin.
+     * @param string $version    The version of this plugin.
      */
     public function __construct($map_plugin, $version)
     {
@@ -94,7 +94,4 @@ class map_plugin_Public
 
         wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery'], $this->version, true);
     }
-
-
-
 }

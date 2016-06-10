@@ -27,7 +27,5 @@ class map_plugin_Activator
      */
     public static function activate()
     {
-
     }
-
 }
