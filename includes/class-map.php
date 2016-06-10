@@ -23,7 +23,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class Social_link
+class map_plugin
 {
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
@@ -31,7 +31,7 @@ class Social_link
      *
      * @since    1.0.0
      *
-     * @var Social_link_Loader Maintains and registers all hooks for the plugin.
+     * @var map_plugin_Loader Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -42,7 +42,7 @@ class Social_link
      *
      * @var string The string used to uniquely identify this plugin.
      */
-    protected $social_link;
+    protected $map_plugin;
 
     /**
      * The current version of the plugin.
@@ -64,7 +64,7 @@ class Social_link
      */
     public function __construct()
     {
-        $this->social_link = 'social-link';
+        $this->map_plugin = 'map';
         $this->version = '1.0.0';
 
         $this->load_dependencies();
@@ -78,10 +78,10 @@ class Social_link
      *
      * Include the following files that make up the plugin:
      *
-     * - Social_link_Loader. Orchestrates the hooks of the plugin.
-     * - Social_link_i18n. Defines internationalization functionality.
-     * - Social_link_Admin. Defines all hooks for the admin area.
-     * - Social_link_Public. Defines all hooks for the public side of the site.
+     * - map_plugin_Loader. Orchestrates the hooks of the plugin.
+     * - map_plugin_i18n. Defines internationalization functionality.
+     * - map_plugin_Admin. Defines all hooks for the admin area.
+     * - map_plugin_Public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
@@ -95,39 +95,39 @@ class Social_link
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
-        require_once plugin_dir_path(dirname(__FILE__)).'includes/class-social-link-loader.php';
+        require_once plugin_dir_path(dirname(__FILE__)).'includes/class-map-loader.php';
 
         /**
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
-        require_once plugin_dir_path(dirname(__FILE__)).'includes/class-social-link-i18n.php';
+        require_once plugin_dir_path(dirname(__FILE__)).'includes/class-map-i18n.php';
 
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
-        require_once plugin_dir_path(dirname(__FILE__)).'admin/class-social-link-admin.php';
+        require_once plugin_dir_path(dirname(__FILE__)).'admin/class-map-admin.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
-        require_once plugin_dir_path(dirname(__FILE__)).'public/class-social-link-public.php';
+        require_once plugin_dir_path(dirname(__FILE__)).'public/class-map-public.php';
 
-        $this->loader = new Social_link_Loader();
+        $this->loader = new map_plugin_Loader();
     }
 
     /**
      * Define the locale for this plugin for internationalization.
      *
-     * Uses the Social_link_i18n class in order to set the domain and to register the hook
+     * Uses the map_plugin_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
      * @since    1.0.0
      */
     private function set_locale()
     {
-        $plugin_i18n = new Social_link_i18n();
+        $plugin_i18n = new map_plugin_i18n();
 
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
@@ -140,7 +140,7 @@ class Social_link
      */
     private function define_admin_hooks()
     {
-        $plugin_admin = new Social_link_Admin($this->get_social_link(), $this->get_version());
+        $plugin_admin = new map_plugin_Admin($this->get_map_plugin(), $this->get_version());
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -154,7 +154,7 @@ class Social_link
      */
     private function define_public_hooks()
     {
-        $plugin_public = new Social_link_Public($this->get_social_link(), $this->get_version());
+        $plugin_public = new map_plugin_Public($this->get_map_plugin(), $this->get_version());
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
@@ -178,9 +178,9 @@ class Social_link
      *
      * @return string The name of the plugin.
      */
-    public function get_social_link()
+    public function get_map_plugin()
     {
-        return $this->social_link;
+        return $this->map_plugin;
     }
 
     /**
@@ -188,7 +188,7 @@ class Social_link
      *
      * @since     1.0.0
      *
-     * @return Social_link_Loader Orchestrates the hooks of the plugin.
+     * @return map_plugin_Loader Orchestrates the hooks of the plugin.
      */
     public function get_loader()
     {

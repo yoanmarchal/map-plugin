@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Fired during plugin deactivation.
+ * Fired during plugin activation.
  *
  * @link       http://example.com
  * @since      1.0.0
  */
 
 /**
- * Fired during plugin deactivation.
+ * Fired during plugin activation.
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class Social_link_Deactivator
+class map_plugin_Activator
 {
     /**
      * Short Description. (use period).
@@ -25,7 +25,9 @@ class Social_link_Deactivator
      *
      * @since    1.0.0
      */
-    public static function deactivate()
+    public static function activate()
     {
+
     }
+
 }

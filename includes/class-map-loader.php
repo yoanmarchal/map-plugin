@@ -16,7 +16,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class Social_link_Loader
+class map_plugin_Loader
 {
     /**
      * The array of actions registered with WordPress.

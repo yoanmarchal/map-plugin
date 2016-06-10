@@ -12,15 +12,15 @@
  * @since             1.0.0
  *
  * @wordpress-plugin
- * Plugin Name:       Social link Plugin
- * Plugin URI:        http://example.com/social-link-uri/
- * Description:       Simple plugin for save && retrive social links
+ * Plugin Name:       Map Plugin
+ * Plugin URI:        http://example.com/map-uri/
+ * Description:       Simple plugin for save && retrive map
  * Version:           1.0.0
  * Author:            Yoan marchal
  * Author URI:        http://yoanmarchal.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       social-link
+ * Text Domain:       map
  * Domain Path:       /languages
  */
 
@@ -31,32 +31,32 @@ if (!defined('WPINC')) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-social-link-activator.php.
+ * This action is documented in includes/class-map-activator.php.
  */
-function activate_social_link()
+function activate_map_plugin()
 {
-    require_once plugin_dir_path(__FILE__).'includes/class-social-link-activator.php';
-    Social_link_Activator::activate();
+    require_once plugin_dir_path(__FILE__).'includes/class-map-activator.php';
+    map_plugin_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-social-link-deactivator.php.
+ * This action is documented in includes/class-map-deactivator.php.
  */
-function deactivate_social_link()
+function deactivate_map_plugin()
 {
-    require_once plugin_dir_path(__FILE__).'includes/class-social-link-deactivator.php';
-    Social_link_Deactivator::deactivate();
+    require_once plugin_dir_path(__FILE__).'includes/class-map-deactivator.php';
+    map_plugin_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activate_social_link');
-register_deactivation_hook(__FILE__, 'deactivate_social_link');
+register_activation_hook(__FILE__, 'activate_map_plugin');
+register_deactivation_hook(__FILE__, 'deactivate_map_plugin');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__).'includes/class-social-link.php';
+require plugin_dir_path(__FILE__).'includes/class-map.php';
 
 /**
  * Begins execution of the plugin.
@@ -67,9 +67,9 @@ require plugin_dir_path(__FILE__).'includes/class-social-link.php';
  *
  * @since    1.0.0
  */
-function run_social_link()
+function run_map_plugin()
 {
-    $plugin = new Social_link();
+    $plugin = new map_plugin();
     $plugin->run();
 }
-run_social_link();
+run_map_plugin();
