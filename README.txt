@@ -21,7 +21,7 @@ This section describes how to install the plugin and get it working.
 
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
-
+add to contact page 
 <section id="map-canvas" ></section>
 <?php
 $args = array (
@@ -59,18 +59,14 @@ if ( $query->have_posts() ) {
     $coords = get_post_meta( get_the_ID(), '_coords', true );
     // Check if the custom field _phone has a value.
     if ( ! empty( $coords ) ) {
-
         echo '<div class="store-item" data-coords="';
         echo $coords[lat] . ',';
         echo $coords[long].'"';
         echo ' data-title="' . get_the_title() . '"';
-        echo ' data-adress="' . $adress . '"';
-        echo ' data-phone="' . $phone . '"';
+        echo ' data-adress="' . esc_html($adress) . '"';
+        echo ' data-phone="' . esc_html($phone) . '"';
         echo '></div>';
-    }?>
-
-
-    <?php
+    }
   }
 } else {
   // no posts found
