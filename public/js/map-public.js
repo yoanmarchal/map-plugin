@@ -87,16 +87,34 @@ function initialize() {
 	}).map(function(data){
 
 		google.maps.event.addListener(data.marker, 'click', function() {
-			stores.filter(function(store){
-				return store !== data.marker;
-			}).forEach(function(store){
-				store.infoWindow.close(map, data.marker);
-			});
 
-			data.infoWindow.open(map, data.marker);
+				if (data.marker.wasClicked) {
+            data.infoWindow.close(map, data.marker);
+            data.marker.wasClicked = false;
+        } else {
+						data.infoWindow.open(map, data.marker);
+            data.marker.wasClicked = true;
+        }
+
 		});
+
+		google.maps.event.addListener(data.marker, 'mouseover', function () {
+			 data.infoWindow.open(map, data.marker);
+	 	});
+
+		 google.maps.event.addListener(data.marker, 'mouseout', function () {
+				 if (data.infoWindow.getMap() && data.marker.wasClicked === false) {
+						 data.infoWindow.close();
+				 }
+		 });
+
+		 google.maps.event.addListener(data.infoWindow, 'closeclick', function () {
+				 data.marker.wasClicked = false;
+		 });
+
 		return data.marker;
-	})
+	});
+
 	console.log(markers);
 	markers.forEach(function(marker){
 		bounds.extend(marker.getPosition());
