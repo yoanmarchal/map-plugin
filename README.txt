@@ -9,11 +9,11 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9CYUE3CVEAJ2Q)
 
-Simple save global and retrive map of website
+Simple save global and retrive multiple store in a map
 
 == Description ==
 
-Minimal social plugin for wordpress
+Minimal map plugin for multi stores cpt
 
 == Installation ==
 
@@ -83,6 +83,8 @@ wp_reset_postdata();
 
 == Changelog ==
 
+= 1.0.1 =
+Add Icon to dashboard, correct definition .
 
 = 1.0 =
 Initial plugin.

@@ -131,11 +131,11 @@ class map_plugin_Admin
 					<h2>My map</h2>
 					<form method="post" action="options.php">
 					<?php
-                            // This prints out all hidden setting fields
-                            settings_fields('my_option_group');
-        do_settings_sections('map-admin');
-        submit_button();
-        ?>
+              // This prints out all hidden setting fields
+              settings_fields('my_option_group');
+              do_settings_sections('map-admin');
+              submit_button();
+              ?>
 					</form>
 			</div>
 			<?php
@@ -157,7 +157,7 @@ class map_plugin_Admin
 
         add_settings_section(
                     'setting_section_id', // ID
-                    'Liens sociaux', // Title
+                    'Titre section', // Title
                     [$this, 'print_section_info'], // Callback
                     'map-admin' // Page
             );
@@ -169,10 +169,7 @@ class map_plugin_Admin
                     'map-admin', // Page
                     'setting_section_id' // Section
             );
-        // champ de rue
-        // code postal
-        // ville
-        //city
+
     }
 
     /**
@@ -241,7 +238,7 @@ class map_plugin_Admin
             'show_in_nav_menus'   => false,
             'show_in_admin_bar'   => true,
             'menu_position'       => 20,
-            'menu_icon'           => '',
+            'menu_icon'           => 'dashicons-location-alt',
             'can_export'          => false,
             'has_archive'         => false,
             'exclude_from_search' => true,
