@@ -102,7 +102,6 @@ class map_plugin_Admin
             wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
-
     public function cpt_store_init()
     {
         $labels = [
