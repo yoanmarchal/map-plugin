@@ -104,65 +104,6 @@ class map_plugin_Admin
             wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
-    /**
-     * Add options page.
-     */
-    public function add_plugin_page()
-    {
-        // This page will be under "Settings"
-            add_options_page(
-                    'Settings Admin',
-                    'Map',
-                    'manage_options',
-                    'map-admin',
-                    [$this, 'create_admin_page']
-            );
-    }
-
-    /**
-     * Options page callback.
-     */
-    public function create_admin_page()
-    {
-        // Set class property
-            $this->options = get_option('links');
-        ?>
-			<div class="wrap">
-					<h2>My map</h2>
-					<form method="post" action="options.php">
-					<?php
-              // This prints out all hidden setting fields
-              settings_fields('my_option_group');
-              do_settings_sections('map-admin');
-              submit_button();
-              ?>
-					</form>
-			</div>
-			<?php
-
-    }
-
-    /**
-     * Register and add settings.
-     */
-    public function page_init()
-    {
-        register_setting(
-                    'my_option_group', // Option group
-                    'links', // Option name
-                    [$this, 'sanitize'] // Sanitize
-            );
-
-        add_settings_section(
-                    'setting_section_id', // ID
-                    'Titre section', // Title
-                    [$this, 'print_section_info'], // Callback
-                    'map-admin' // Page
-            );
-
-
-    }
-
 
     public function cpt_store_init()
     {
