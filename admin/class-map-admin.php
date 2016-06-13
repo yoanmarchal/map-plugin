@@ -142,8 +142,6 @@ class map_plugin_Admin
 
     }
 
-    // Facebook, YouTube, Twitter, Instagram, Tumblr, Google+,  Skype, Reddit, Soundcloud, Pinterest
-
     /**
      * Register and add settings.
      */
@@ -162,50 +160,9 @@ class map_plugin_Admin
                     'map-admin' // Page
             );
 
-        add_settings_field(
-                    'facebook', // ID
-                    'Facebook', // Title
-                    [$this, 'facebook_callback'], // Callback
-                    'map-admin', // Page
-                    'setting_section_id' // Section
-            );
 
     }
 
-    /**
-     * Sanitize each setting field as needed.
-     *
-     * @param array $input Contains all settings fields as array keys
-     */
-    public function sanitize($input)
-    {
-        $new_input = [];
-
-        if (isset($input['facebook'])) {
-            $new_input['facebook'] = sanitize_text_field($input['facebook']);
-        }
-
-        return $new_input;
-    }
-
-    /**
-     * Print the Section text.
-     */
-    public function print_section_info()
-    {
-        echo 'Enter your settings below:';
-    }
-
-    /**
-     * Get the settings option array and print one of its values.
-     */
-    public function facebook_callback()
-    {
-        printf(
-                    '<input type="url" id="facebook" name="links[facebook]" value="%s" />',
-                    isset($this->options['facebook']) ? esc_url($this->options['facebook']) : ''
-            );
-    }
 
     public function cpt_store_init()
     {
