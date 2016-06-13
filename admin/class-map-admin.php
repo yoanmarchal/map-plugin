@@ -53,8 +53,6 @@ class map_plugin_Admin
     {
         $this->map_plugin = $map_plugin;
         $this->version = $version;
-        add_action('admin_menu', [$this, 'add_plugin_page']);
-        add_action('admin_init', [$this, 'page_init']);
         add_action('init', [$this, 'cpt_store_init']);
     }
 
