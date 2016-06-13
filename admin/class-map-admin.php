@@ -133,9 +133,9 @@ class map_plugin_Admin
 					<?php
               // This prints out all hidden setting fields
               settings_fields('my_option_group');
-              do_settings_sections('map-admin');
-              submit_button();
-              ?>
+        do_settings_sections('map-admin');
+        submit_button();
+        ?>
 					</form>
 			</div>
 			<?php
@@ -169,7 +169,6 @@ class map_plugin_Admin
                     'map-admin', // Page
                     'setting_section_id' // Section
             );
-
     }
 
     /**
