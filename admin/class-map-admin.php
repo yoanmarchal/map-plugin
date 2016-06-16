@@ -17,7 +17,7 @@
  */
 class map_plugin_Admin
 {
-    /**
+        /**
          * The ID of this plugin.
          *
          * @since    1.0.0
@@ -49,12 +49,14 @@ class map_plugin_Admin
           */
          private $options;
 
-    public function __construct($map_plugin, $version)
-    {
-        $this->map_plugin = $map_plugin;
-        $this->version = $version;
-        add_action('init', [$this, 'cpt_store_init']);
-    }
+        public function __construct($map_plugin, $version)
+        {
+            $this->map_plugin = $map_plugin;
+            $this->version = $version;
+            add_action('init', [$this, 'cpt_store_init']);
+            add_action('add_meta_boxes', [$this, 'init_metabox_store']);
+            add_action('save_post', [$this, 'save_metabox_store']);
+        }
 
         /**
          * Register the stylesheets for the admin area.
@@ -102,118 +104,115 @@ class map_plugin_Admin
             wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
-    public function cpt_store_init()
-    {
-        $labels = [
-            'name'                => _x('Stores', 'Post Type General Name', 'map-plugin'),
-            'singular_name'       => _x('Store', 'Post Type Singular Name', 'map-plugin'),
-            'menu_name'           => __('My stores', 'map-plugin'),
-            'parent_item_colon'   => __('Parent Store:', 'map-plugin'),
-            'all_items'           => __('All Stores', 'map-plugin'),
-            'view_item'           => __('View store', 'map-plugin'),
-            'add_new_item'        => __('Add New store', 'map-plugin'),
-            'add_new'             => __('New store', 'map-plugin'),
-            'edit_item'           => __('Edit store', 'map-plugin'),
-            'update_item'         => __('Update store', 'map-plugin'),
-            'search_items'        => __('Search stores', 'map-plugin'),
-            'not_found'           => __('No stores found', 'map-plugin'),
-            'not_found_in_trash'  => __('No stores found in Trash', 'map-plugin'),
-        ];
-
-        $args = [
-            'label'               => __('Store', 'map-plugin'),
-            'description'         => __('Stores', 'map-plugin'),
-            'labels'              => $labels,
-            'supports'            => ['title', 'thumbnail', 'page-attributes', 'custom-fields'],
-            'taxonomies'          => ['category', 'post_tag'],
-            'hierarchical'        => false,
-            'public'              => true,
-            'show_ui'             => true,
-            'show_in_menu'        => true,
-            'show_in_nav_menus'   => false,
-            'show_in_admin_bar'   => true,
-            'menu_position'       => 20,
-            'menu_icon'           => 'dashicons-location-alt',
-            'can_export'          => false,
-            'has_archive'         => false,
-            'exclude_from_search' => true,
-            'publicly_queryable'  => true,
-            'capability_type'     => 'post',
-        ];
-        register_post_type('store', $args);
-
-        add_action('add_meta_boxes', 'init_metabox');
-
-        function init_metabox()
+        public function init_metabox_store()
         {
+            function store_infos($post)
+            {
+                $first_name = get_post_meta($post->ID, '_first_name', true);
+                $last_name = get_post_meta($post->ID, '_last_name', true);
+                $civility = get_post_meta($post->ID, '_civility', true);
+                $adresse = get_post_meta($post->ID, '_adresse', true);
+                $mail = get_post_meta($post->ID, '_mail', true);
+                $phone = get_post_meta($post->ID, '_phone', true);
+
+                $coords = get_post_meta($post->ID, '_coords', true);
+                $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
+                ?>
+              <p>
+                <input type="text" name="civility" value="<?php echo $civility;
+                ?>" placeholder="<?= __('Civility', 'map-plugin');
+                ?>"/>
+                <input type="text" name="last_name" value="<?php echo $last_name;
+                ?>" placeholder="<?= __('First name', 'map-plugin');
+                ?>"/>
+              </p>
+
+              <p>
+                <input type="text" name="first_name" value="<?php echo $first_name;
+                ?>" placeholder="<?= __('Last name', 'map-plugin');
+                ?>"/>
+              </p>
+              <p>
+                <textarea id="" style="width: 250px;" name="_adress"><?php echo $adresse;
+                ?></textarea>
+                <input id="gps_coords" style="width: 250px;" type="text" name="_coords" value="<?php echo $coords['lat'].' , '.$coords['long'];
+                ?>" disabled="disabled" />
+                <input type="checkbox" name="defined_coords" checked="checked" value="1" id="defined_coords"> <label for="defined_coords">Coordonnées définies manuellement</label>
+              </p>
+              <p>
+                <input type="text" name="mail" value="<?php echo $mail;
+                ?>" placeholder="<?= __('Email', 'map-plugin');
+                ?>" />
+              </p>
+              <p>
+                <input type="text" name="phone" value="<?php echo $phone;
+                ?>" placeholder="<?= __('Phone', 'map-plugin');
+                ?>" />
+              </p>
+              <script type="text/javascript">// <![CDATA[
+                jQuery(document).ready(function($){
+                  var $gps_man = $('#defined_coords');
+                  function test_manual_coords(){
+                    if($gps_man.prop("checked")==true){
+                      $('#gps_coords').prop("disabled",false);
+                    }else{
+                      $('#gps_coords').prop("disabled",true);
+                    }
+                  }
+                  $gps_man.on('click',test_manual_coords);
+                  test_manual_coords();
+                });
+
+              // ]]></script>
+              <?php
+
+            }
             add_meta_box('store_infos', 'Informations sur la boutique', 'store_infos', 'store', 'advanced', 'high');
+
         }
 
-        function store_infos($post)
+        public function cpt_store_init()
         {
-            $first_name = get_post_meta($post->ID, '_first_name', true);
-            $last_name = get_post_meta($post->ID, '_last_name', true);
-            $civility = get_post_meta($post->ID, '_civility', true);
-            $adresse = get_post_meta($post->ID, '_adresse', true);
-            $mail = get_post_meta($post->ID, '_mail', true);
-            $phone = get_post_meta($post->ID, '_phone', true);
+            $labels = [
+                'name'                => _x('Stores', 'Post Type General Name', 'map-plugin'),
+                'singular_name'       => _x('Store', 'Post Type Singular Name', 'map-plugin'),
+                'menu_name'           => __('My stores', 'map-plugin'),
+                'parent_item_colon'   => __('Parent Store:', 'map-plugin'),
+                'all_items'           => __('All Stores', 'map-plugin'),
+                'view_item'           => __('View store', 'map-plugin'),
+                'add_new_item'        => __('Add New store', 'map-plugin'),
+                'add_new'             => __('New store', 'map-plugin'),
+                'edit_item'           => __('Edit store', 'map-plugin'),
+                'update_item'         => __('Update store', 'map-plugin'),
+                'search_items'        => __('Search stores', 'map-plugin'),
+                'not_found'           => __('No stores found', 'map-plugin'),
+                'not_found_in_trash'  => __('No stores found in Trash', 'map-plugin'),
+            ];
 
-            $coords = get_post_meta($post->ID, '_coords', true);
-            $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
-            ?>
-          <p>
-            <input type="text" name="civility" value="<?php echo $civility;
-            ?>" placeholder="<?= __('Civility', 'map-plugin');
-            ?>"/>
-            <input type="text" name="last_name" value="<?php echo $last_name;
-            ?>" placeholder="<?= __('First name', 'map-plugin');
-            ?>"/>
-          </p>
-
-          <p>
-            <input type="text" name="first_name" value="<?php echo $first_name;
-            ?>" placeholder="<?= __('Last name', 'map-plugin');
-            ?>"/>
-          </p>
-          <p>
-            <textarea id="" style="width: 250px;" name="_adress"><?php echo $adresse;
-            ?></textarea>
-            <input id="gps_coords" style="width: 250px;" type="text" name="_coords" value="<?php echo $coords['lat'].' , '.$coords['long'];
-            ?>" disabled="disabled" />
-            <input type="checkbox" name="defined_coords" checked="checked" value="1" id="defined_coords"> <label for="defined_coords">Coordonnées définies manuellement</label>
-          </p>
-          <p>
-            <input type="text" name="mail" value="<?php echo $mail;
-            ?>" placeholder="<?= __('Email', 'map-plugin');
-            ?>" />
-          </p>
-          <p>
-            <input type="text" name="phone" value="<?php echo $phone;
-            ?>" placeholder="<?= __('Phone', 'map-plugin');
-            ?>" />
-          </p>
-          <script type="text/javascript">// <![CDATA[
-            jQuery(document).ready(function($){
-              var $gps_man = $('#defined_coords');
-              function test_manual_coords(){
-                if($gps_man.prop("checked")==true){
-                  $('#gps_coords').prop("disabled",false);
-                }else{
-                  $('#gps_coords').prop("disabled",true);
-                }
-              }
-              $gps_man.on('click',test_manual_coords);
-              test_manual_coords();
-            });
-
-          // ]]></script>
-          <?php
-
+            $args = [
+                'label'               => __('Store', 'map-plugin'),
+                'description'         => __('Stores', 'map-plugin'),
+                'labels'              => $labels,
+                'supports'            => ['title', 'thumbnail', 'page-attributes', 'custom-fields'],
+                'taxonomies'          => ['category', 'post_tag'],
+                'hierarchical'        => false,
+                'public'              => true,
+                'show_ui'             => true,
+                'show_in_menu'        => true,
+                'show_in_nav_menus'   => false,
+                'show_in_admin_bar'   => true,
+                'menu_position'       => 20,
+                'menu_icon'           => 'dashicons-location-alt',
+                'can_export'          => false,
+                'has_archive'         => false,
+                'exclude_from_search' => true,
+                'publicly_queryable'  => true,
+                'capability_type'     => 'post',
+            ];
+            register_post_type('store', $args);
         }
 
-        add_action('save_post', 'save_metabox');
-
-        function save_metabox($post_id)
+        public function save_metabox_store($post_id)
         {
             if (isset($_POST['civility'])) {
                 update_post_meta($post_id, '_civility', sanitize_text_field($_POST['civility']));
@@ -273,5 +272,4 @@ class map_plugin_Admin
                 }
             }
         }
-    }
 }
