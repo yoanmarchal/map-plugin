@@ -15,7 +15,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class map_plugin_Admin
+class plugin_admin
 {
     /**
          * The ID of this plugin.
@@ -35,26 +35,20 @@ class map_plugin_Admin
          */
         private $version;
 
-         /**
-          * Initialize the class and set its properties.
-          *
-          * @since    1.0.0
-          *
-          * @param      string    $mapPlugin       The name of this plugin.
-          * @param      string    $version    The version of this plugin.
-          */
-
-         /**
-          * Holds the values to be used in the fields callbacks.
-          */
-         private $options;
-
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     *
+     * @param string $mapPlugin The name of this plugin.
+     * @param string $version   The version of this plugin.
+     */
     public function __construct($mapPlugin, $version)
     {
         $this->mapPlugin = $mapPlugin;
         $this->version = $version;
         add_action('init', [$this, 'cpt_store_init']);
-        add_action('add_meta_boxes', [$this, 'init_metabox_store']);
+        add_action('add_meta_boxes', [$this, 'initMetaboxes']);
         add_action('save_post', [$this, 'save_metabox_store']);
     }
 
@@ -104,31 +98,31 @@ class map_plugin_Admin
             wp_enqueue_script($this->mapPlugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
-    public function init_metabox_store()
+    public function initMetaboxes()
     {
         function store_infos($post)
         {
-            $first_name = get_post_meta($post->ID, '_first_name', true);
-            $last_name = get_post_meta($post->ID, '_last_name', true);
+            $firstName = get_post_meta($post->ID, '_first_name', true);
+            $lastName = get_post_meta($post->ID, '_last_name', true);
             $civility = get_post_meta($post->ID, '_civility', true);
             $adresse = get_post_meta($post->ID, '_adresse', true);
             $mail = get_post_meta($post->ID, '_mail', true);
             $phone = get_post_meta($post->ID, '_phone', true);
 
             $coords = get_post_meta($post->ID, '_coords', true);
-            $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
+            get_post_meta($post->ID, '_defined_coords', true);
             ?>
               <p>
                 <input type="text" name="civility" value="<?php echo $civility;
             ?>" placeholder="<?= __('Civility', 'map-plugin');
             ?>"/>
-                <input type="text" name="last_name" value="<?php echo $last_name;
+                <input type="text" name="last_name" value="<?php echo $lastName;
             ?>" placeholder="<?= __('First name', 'map-plugin');
             ?>"/>
               </p>
 
               <p>
-                <input type="text" name="first_name" value="<?php echo $first_name;
+                <input type="text" name="first_name" value="<?php echo $firstName;
             ?>" placeholder="<?= __('Last name', 'map-plugin');
             ?>"/>
               </p>
