@@ -31,7 +31,7 @@ class MapPlugin
      *
      * @since    1.0.0
      *
-     * @var map_plugin_loader Maintains and registers all hooks for the plugin.
+     * @var MapPluginLoader Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -78,7 +78,7 @@ class MapPlugin
      *
      * Include the following files that make up the plugin:
      *
-     * - map_plugin_loader. Orchestrates the hooks of the plugin.
+     * - MapPluginLoader. Orchestrates the hooks of the plugin.
      * - map_plugin_i18n. Defines internationalization functionality.
      * - pluginAdmin. Defines all hooks for the admin area.
      * - map_plugin_public. Defines all hooks for the public side of the site.
@@ -114,7 +114,7 @@ class MapPlugin
          */
         require_once plugin_dir_path(dirname(__FILE__)).'public/class-map-public.php';
 
-        $this->loader = new map_plugin_loader();
+        $this->loader = new MapPluginLoader();
     }
 
     /**
@@ -188,7 +188,7 @@ class MapPlugin
      *
      * @since     1.0.0
      *
-     * @return map_plugin_loader Orchestrates the hooks of the plugin.
+     * @return MapPluginLoader Orchestrates the hooks of the plugin.
      */
     public function getLoader()
     {

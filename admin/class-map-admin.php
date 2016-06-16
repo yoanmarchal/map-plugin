@@ -64,10 +64,10 @@ class PluginAdmin
              * This function is provided for demonstration purposes only.
              *
              * An instance of this class should be passed to the run() function
-             * defined in map_plugin_loader as all of the hooks are defined
+             * defined in MapPluginLoader as all of the hooks are defined
              * in that particular class.
              *
-             * The map_plugin_loader will then create the relationship
+             * The MapPluginLoader will then create the relationship
              * between the defined hooks and the functions defined in this
              * class.
              */
@@ -87,10 +87,10 @@ class PluginAdmin
              * This function is provided for demonstration purposes only.
              *
              * An instance of this class should be passed to the run() function
-             * defined in map_plugin_loader as all of the hooks are defined
+             * defined in MapPluginLoader as all of the hooks are defined
              * in that particular class.
              *
-             * The map_plugin_loader will then create the relationship
+             * The MapPluginLoader will then create the relationship
              * between the defined hooks and the functions defined in this
              * class.
              */
