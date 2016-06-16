@@ -16,7 +16,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class mapPluginActivator
+class map_plugin_activator
 {
     /**
      * Short Description. (use period).

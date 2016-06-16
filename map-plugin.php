@@ -36,7 +36,7 @@ if (!defined('WPINC')) {
 function activateMapPlugin()
 {
     require_once plugin_dir_path(__FILE__).'includes/class-map-activator.php';
-    mapPluginActivator::activate();
+    map_plugin_activator::activate();
 }
 
 /**
@@ -46,7 +46,7 @@ function activateMapPlugin()
 function deactivateMapPlugin()
 {
     require_once plugin_dir_path(__FILE__).'includes/class-map-deactivator.php';
-    mapPluginDeactivator::deactivate();
+    map_plugin_Deactivator::deactivate();
 }
 
 register_activation_hook(__FILE__, 'activateMapPlugin');
@@ -69,7 +69,7 @@ require plugin_dir_path(__FILE__).'includes/class-map.php';
  */
 function run_mapPlugin()
 {
-    $plugin = new mapPlugin();
+    $plugin = new map_plugin();
     $plugin->run();
 }
 run_mapPlugin();

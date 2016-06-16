@@ -16,7 +16,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class mapPluginLoader
+class map_plugin_loader
 {
     /**
      * The array of actions registered with WordPress.

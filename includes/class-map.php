@@ -31,7 +31,7 @@ class mapPlugin
      *
      * @since    1.0.0
      *
-     * @var mapPluginLoader Maintains and registers all hooks for the plugin.
+     * @var map_plugin_loader Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -78,8 +78,8 @@ class mapPlugin
      *
      * Include the following files that make up the plugin:
      *
-     * - mapPluginLoader. Orchestrates the hooks of the plugin.
-     * - mapPluginI18n. Defines internationalization functionality.
+     * - map_plugin_loader. Orchestrates the hooks of the plugin.
+     * - map_plugin_i18n. Defines internationalization functionality.
      * - mapPluginAdmin. Defines all hooks for the admin area.
      * - mapPlugin_Public. Defines all hooks for the public side of the site.
      *
@@ -114,20 +114,20 @@ class mapPlugin
          */
         require_once plugin_dir_path(dirname(__FILE__)).'public/class-map-public.php';
 
-        $this->loader = new mapPluginLoader();
+        $this->loader = new map_plugin_loader();
     }
 
     /**
      * Define the locale for this plugin for internationalization.
      *
-     * Uses the mapPluginI18n class in order to set the domain and to register the hook
+     * Uses the map_plugin_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
      * @since    1.0.0
      */
     private function setLocale()
     {
-        $plugin_i18n = new mapPluginI18n();
+        $plugin_i18n = new map_plugin_i18n();
 
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
@@ -188,7 +188,7 @@ class mapPlugin
      *
      * @since     1.0.0
      *
-     * @return mapPluginLoader Orchestrates the hooks of the plugin.
+     * @return map_plugin_loader Orchestrates the hooks of the plugin.
      */
     public function getLoader()
     {

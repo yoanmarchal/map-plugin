@@ -20,7 +20,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class mapPluginI18n
+class map_plugin_i18n
 {
     /**
      * Load the plugin text domain for translation.
