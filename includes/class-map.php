@@ -23,7 +23,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class mapPlugin
+class map_plugin
 {
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
@@ -180,7 +180,7 @@ class mapPlugin
      */
     public function getMapPlugin()
     {
-        return $this->mapPlugin;
+        return $this->map_plugin;
     }
 
     /**
