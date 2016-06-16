@@ -214,8 +214,9 @@ class map_plugin_Admin
 
         public function save_metabox_store($post_id)
         {
-            if (isset($_POST['civility'])) {
-                update_post_meta($post_id, '_civility', sanitize_text_field($_POST['civility']));
+            $validCivility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
+            if ($validCivility) {
+                update_post_meta($postId, '_civility', $validCivility);
             }
             if (isset($_POST['last_name'])) {
                 update_post_meta($post_id, '_last_name', sanitize_text_field($_POST['last_name']));
