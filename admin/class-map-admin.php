@@ -15,7 +15,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class map_plugin_Admin
+class mapPlugin_Admin
 {
     /**
          * The ID of this plugin.
@@ -51,7 +51,7 @@ class map_plugin_Admin
 
     public function __construct($mapPlugin, $version)
     {
-        $this->map_plugin = $mapPlugin;
+        $this->mapPlugin = $mapPlugin;
         $this->version = $version;
         add_action('init', [$this, 'cpt_store_init']);
         add_action('add_meta_boxes', [$this, 'init_metabox_store']);
@@ -70,15 +70,15 @@ class map_plugin_Admin
              * This function is provided for demonstration purposes only.
              *
              * An instance of this class should be passed to the run() function
-             * defined in map_plugin_Loader as all of the hooks are defined
+             * defined in mapPlugin_Loader as all of the hooks are defined
              * in that particular class.
              *
-             * The map_plugin_Loader will then create the relationship
+             * The mapPlugin_Loader will then create the relationship
              * between the defined hooks and the functions defined in this
              * class.
              */
 
-            wp_enqueue_style($this->map_plugin, plugin_dir_url(__FILE__).'css/map-admin.css', [], $this->version, 'all');
+            wp_enqueue_style($this->mapPlugin, plugin_dir_url(__FILE__).'css/map-admin.css', [], $this->version, 'all');
         }
 
         /**
@@ -93,15 +93,15 @@ class map_plugin_Admin
              * This function is provided for demonstration purposes only.
              *
              * An instance of this class should be passed to the run() function
-             * defined in map_plugin_Loader as all of the hooks are defined
+             * defined in mapPlugin_Loader as all of the hooks are defined
              * in that particular class.
              *
-             * The map_plugin_Loader will then create the relationship
+             * The mapPlugin_Loader will then create the relationship
              * between the defined hooks and the functions defined in this
              * class.
              */
 
-            wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
+            wp_enqueue_script($this->mapPlugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
     public function init_metabox_store()
