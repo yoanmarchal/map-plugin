@@ -24,7 +24,7 @@ class map_plugin_Admin
          *
          * @var string The ID of this plugin.
          */
-        private $map_plugin;
+        private $mapPlugin;
 
         /**
          * The version of this plugin.
@@ -40,7 +40,7 @@ class map_plugin_Admin
           *
           * @since    1.0.0
           *
-          * @param      string    $map_plugin       The name of this plugin.
+          * @param      string    $mapPlugin       The name of this plugin.
           * @param      string    $version    The version of this plugin.
           */
 
@@ -49,9 +49,9 @@ class map_plugin_Admin
           */
          private $options;
 
-    public function __construct($map_plugin, $version)
+    public function __construct($mapPlugin, $version)
     {
-        $this->map_plugin = $map_plugin;
+        $this->map_plugin = $mapPlugin;
         $this->version = $version;
         add_action('init', [$this, 'cpt_store_init']);
         add_action('add_meta_boxes', [$this, 'init_metabox_store']);
