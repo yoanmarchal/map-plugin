@@ -1,5 +1,5 @@
-  engines:
-    phpcodesniffer:
-      enabled: true
-      config:
-        standard: "WordPress"
+engines:
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "WordPress"
