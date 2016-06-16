@@ -23,7 +23,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class map_plugin
+class MapPlugin
 {
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
@@ -140,7 +140,7 @@ class map_plugin
      */
     private function defineAdminHooks()
     {
-        $pluginAdmin = new pluginAdmin($this->getMapPlugin(), $this->getVersion());
+        $pluginAdmin = new PluginAdmin($this->getMapPlugin(), $this->getVersion());
 
         $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueStyles');
         $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueScripts');
