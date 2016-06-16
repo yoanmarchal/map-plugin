@@ -180,7 +180,7 @@ class map_plugin
      */
     public function getMapPlugin()
     {
-        return $this->map_plugin;
+        return $this->mapPlugin;
     }
 
     /**
