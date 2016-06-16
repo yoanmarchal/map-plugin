@@ -257,7 +257,7 @@ class plugin_admin
               update_post_meta($postId, '_defined_coords', 1);
               //je construis un tableu à partir des coordonnées de l'utilisateur
               $coordonnesDefinies = filter_input(INPUT_POST, '_coords');
-              $userCoords = explode(',', trim($coordonnesDefinies));
+                $userCoords = explode(',', trim($coordonnesDefinies));
                 $coords = ['lat' => $userCoords[0], 'long' => $userCoords[1]];
               // j'update les coordonnées définies par l'utilisateur
               update_post_meta($postId, '_coords', $coords);
