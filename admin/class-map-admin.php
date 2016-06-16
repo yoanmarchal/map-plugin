@@ -15,7 +15,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class pluginAdmin
+class PluginAdmin
 {
     /**
          * The ID of this plugin.
