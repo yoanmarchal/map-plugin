@@ -208,30 +208,34 @@ class plugin_admin
 
     public function save_metabox_store($postId)
     {
-        $validCivility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
-        if ($validCivility) {
-            update_post_meta($postId, '_civility', $validCivility);
+        $civility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
+        if ($civility) {
+            update_post_meta($postId, '_civility', $civility);
         }
-        if (isset($_POST['last_name'])) {
-            update_post_meta($postId, '_last_name', sanitize_text_field($_POST['last_name']));
+        $lastName = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
+        if ($lastName) {
+            update_post_meta($postId, '_last_name', $lastName);
         }
-        if (isset($_POST['first_name'])) {
-            update_post_meta($postId, '_first_name', sanitize_text_field($_POST['first_name']));
+        $firstName = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
+        if ($firstName) {
+            update_post_meta($postId, '_first_name', $firstName);
         }
-        if (isset($_POST['mail'])) {
-            update_post_meta($postId, '_mail', is_email($_POST['mail']));
+        $mail = filter_input(INPUT_POST, 'mail', FILTER_VALIDATE_EMAIL);
+        if ($mail) {
+            update_post_meta($postId, '_mail', $mail);
         }
-        if (isset($_POST['phone'])) {
-            update_post_meta($postId, '_phone', esc_html($_POST['phone']));
+        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+        if ($phone) {
+            update_post_meta($postId, '_phone', $phone);
         }
-
-        if (isset($_POST['_adress'])) {
-            $adresse = wp_strip_all_tags($_POST['_adress']);
+        $adress = filter_input(INPUT_POST, '_adress', FILTER_SANITIZE_STRING);
+        if ($adress) {
+            $adresse = $adress;
             update_post_meta($postId, '_adresse', $adresse);
 
-            function get_coords($a)
+            function get_coords($arr)
             {
-                $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($a).'&sensor=false';
+                $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($arr).'&sensor=false';
                 $request = wp_remote_get($map_url);
                 $json = wp_remote_retrieve_body($request);
 
@@ -247,7 +251,7 @@ class plugin_admin
             }
 
             //je récupère ma checkbox
-            $coordonnes_definies = $_POST['defined_coords'];
+            $coordonnes_definies = filter_input(INPUT_POST, 'defined_coords', FILTER_VALIDATE_BOOLEAN);
             if ($coordonnes_definies == 1) { //si checkbox cochée...
               // je sauvegarde sa valeur
               update_post_meta($postId, '_defined_coords', 1);
