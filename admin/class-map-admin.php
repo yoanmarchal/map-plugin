@@ -44,11 +44,6 @@ class map_plugin_Admin
           * @param      string    $version    The version of this plugin.
           */
 
-         /**
-          * Holds the values to be used in the fields callbacks.
-          */
-         private $options;
-
     public function __construct($mapPlugin, $version)
     {
         $this->mapPlugin = $mapPlugin;
@@ -116,7 +111,7 @@ class map_plugin_Admin
             $phone = get_post_meta($post->ID, '_phone', true);
 
             $coords = get_post_meta($post->ID, '_coords', true);
-            $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
+            get_post_meta($post->ID, '_defined_coords', true);
             ?>
               <p>
                 <input type="text" name="civility" value="<?php echo $civility;
