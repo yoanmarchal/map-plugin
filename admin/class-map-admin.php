@@ -17,7 +17,7 @@
  */
 class map_plugin_Admin
 {
-        /**
+    /**
          * The ID of this plugin.
          *
          * @since    1.0.0
@@ -49,14 +49,14 @@ class map_plugin_Admin
           */
          private $options;
 
-        public function __construct($map_plugin, $version)
-        {
-            $this->map_plugin = $map_plugin;
-            $this->version = $version;
-            add_action('init', [$this, 'cpt_store_init']);
-            add_action('add_meta_boxes', [$this, 'init_metabox_store']);
-            add_action('save_post', [$this, 'save_metabox_store']);
-        }
+    public function __construct($map_plugin, $version)
+    {
+        $this->map_plugin = $map_plugin;
+        $this->version = $version;
+        add_action('init', [$this, 'cpt_store_init']);
+        add_action('add_meta_boxes', [$this, 'init_metabox_store']);
+        add_action('save_post', [$this, 'save_metabox_store']);
+    }
 
         /**
          * Register the stylesheets for the admin area.
@@ -104,50 +104,50 @@ class map_plugin_Admin
             wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
-        public function init_metabox_store()
+    public function init_metabox_store()
+    {
+        function store_infos($post)
         {
-            function store_infos($post)
-            {
-                $first_name = get_post_meta($post->ID, '_first_name', true);
-                $last_name = get_post_meta($post->ID, '_last_name', true);
-                $civility = get_post_meta($post->ID, '_civility', true);
-                $adresse = get_post_meta($post->ID, '_adresse', true);
-                $mail = get_post_meta($post->ID, '_mail', true);
-                $phone = get_post_meta($post->ID, '_phone', true);
+            $first_name = get_post_meta($post->ID, '_first_name', true);
+            $last_name = get_post_meta($post->ID, '_last_name', true);
+            $civility = get_post_meta($post->ID, '_civility', true);
+            $adresse = get_post_meta($post->ID, '_adresse', true);
+            $mail = get_post_meta($post->ID, '_mail', true);
+            $phone = get_post_meta($post->ID, '_phone', true);
 
-                $coords = get_post_meta($post->ID, '_coords', true);
-                $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
-                ?>
+            $coords = get_post_meta($post->ID, '_coords', true);
+            $coordonnes_definies = get_post_meta($post->ID, '_defined_coords', true);
+            ?>
               <p>
                 <input type="text" name="civility" value="<?php echo $civility;
-                ?>" placeholder="<?= __('Civility', 'map-plugin');
-                ?>"/>
+            ?>" placeholder="<?= __('Civility', 'map-plugin');
+            ?>"/>
                 <input type="text" name="last_name" value="<?php echo $last_name;
-                ?>" placeholder="<?= __('First name', 'map-plugin');
-                ?>"/>
+            ?>" placeholder="<?= __('First name', 'map-plugin');
+            ?>"/>
               </p>
 
               <p>
                 <input type="text" name="first_name" value="<?php echo $first_name;
-                ?>" placeholder="<?= __('Last name', 'map-plugin');
-                ?>"/>
+            ?>" placeholder="<?= __('Last name', 'map-plugin');
+            ?>"/>
               </p>
               <p>
                 <textarea id="" style="width: 250px;" name="_adress"><?php echo $adresse;
-                ?></textarea>
+            ?></textarea>
                 <input id="gps_coords" style="width: 250px;" type="text" name="_coords" value="<?php echo $coords['lat'].' , '.$coords['long'];
-                ?>" disabled="disabled" />
+            ?>" disabled="disabled" />
                 <input type="checkbox" name="defined_coords" checked="checked" value="1" id="defined_coords"> <label for="defined_coords">Coordonnées définies manuellement</label>
               </p>
               <p>
                 <input type="text" name="mail" value="<?php echo $mail;
-                ?>" placeholder="<?= __('Email', 'map-plugin');
-                ?>" />
+            ?>" placeholder="<?= __('Email', 'map-plugin');
+            ?>" />
               </p>
               <p>
                 <input type="text" name="phone" value="<?php echo $phone;
-                ?>" placeholder="<?= __('Phone', 'map-plugin');
-                ?>" />
+            ?>" placeholder="<?= __('Phone', 'map-plugin');
+            ?>" />
               </p>
               <script type="text/javascript">// <![CDATA[
                 jQuery(document).ready(function($){
@@ -166,14 +166,14 @@ class map_plugin_Admin
               // ]]></script>
               <?php
 
-            }
-            add_meta_box('store_infos', 'Informations sur la boutique', 'store_infos', 'store', 'advanced', 'high');
-
         }
 
-        public function cpt_store_init()
-        {
-            $labels = [
+        add_meta_box('store_infos', 'Informations sur la boutique', 'store_infos', 'store', 'advanced', 'high');
+    }
+
+    public function cpt_store_init()
+    {
+        $labels = [
                 'name'                => _x('Stores', 'Post Type General Name', 'map-plugin'),
                 'singular_name'       => _x('Store', 'Post Type Singular Name', 'map-plugin'),
                 'menu_name'           => __('My stores', 'map-plugin'),
@@ -189,7 +189,7 @@ class map_plugin_Admin
                 'not_found_in_trash'  => __('No stores found in Trash', 'map-plugin'),
             ];
 
-            $args = [
+        $args = [
                 'label'               => __('Store', 'map-plugin'),
                 'description'         => __('Stores', 'map-plugin'),
                 'labels'              => $labels,
@@ -209,68 +209,68 @@ class map_plugin_Admin
                 'publicly_queryable'  => true,
                 'capability_type'     => 'post',
             ];
-            register_post_type('store', $args);
+        register_post_type('store', $args);
+    }
+
+    public function save_metabox_store($post_id)
+    {
+        $validCivility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
+        if ($validCivility) {
+            update_post_meta($postId, '_civility', $validCivility);
+        }
+        if (isset($_POST['last_name'])) {
+            update_post_meta($post_id, '_last_name', sanitize_text_field($_POST['last_name']));
+        }
+        if (isset($_POST['first_name'])) {
+            update_post_meta($post_id, '_first_name', sanitize_text_field($_POST['first_name']));
+        }
+        if (isset($_POST['mail'])) {
+            update_post_meta($post_id, '_mail', is_email($_POST['mail']));
+        }
+        if (isset($_POST['phone'])) {
+            update_post_meta($post_id, '_phone', esc_html($_POST['phone']));
         }
 
-        public function save_metabox_store($post_id)
-        {
-            $validCivility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
-            if ($validCivility) {
-                update_post_meta($postId, '_civility', $validCivility);
-            }
-            if (isset($_POST['last_name'])) {
-                update_post_meta($post_id, '_last_name', sanitize_text_field($_POST['last_name']));
-            }
-            if (isset($_POST['first_name'])) {
-                update_post_meta($post_id, '_first_name', sanitize_text_field($_POST['first_name']));
-            }
-            if (isset($_POST['mail'])) {
-                update_post_meta($post_id, '_mail', is_email($_POST['mail']));
-            }
-            if (isset($_POST['phone'])) {
-                update_post_meta($post_id, '_phone', esc_html($_POST['phone']));
-            }
+        if (isset($_POST['_adress'])) {
+            $adresse = wp_strip_all_tags($_POST['_adress']);
+            update_post_meta($post_id, '_adresse', $adresse);
 
-            if (isset($_POST['_adress'])) {
-                $adresse = wp_strip_all_tags($_POST['_adress']);
-                update_post_meta($post_id, '_adresse', $adresse);
+            function get_coords($a)
+            {
+                $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($a).'&sensor=false';
+                $request = wp_remote_get($map_url);
+                $json = wp_remote_retrieve_body($request);
 
-                function get_coords($a)
-                {
-                    $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($a).'&sensor=false';
-                    $request = wp_remote_get($map_url);
-                    $json = wp_remote_retrieve_body($request);
-
-                    if (empty($json)) {
-                        return false;
-                    }
-
-                    $json = json_decode($json);
-                    $lat = $json->results[0]->geometry->location->lat;
-                    $long = $json->results[0]->geometry->location->lng;
-
-                    return compact('lat', 'long');
+                if (empty($json)) {
+                    return false;
                 }
+
+                $json = json_decode($json);
+                $lat = $json->results[0]->geometry->location->lat;
+                $long = $json->results[0]->geometry->location->lng;
+
+                return compact('lat', 'long');
+            }
 
             //je récupère ma checkbox
             $coordonnes_definies = $_POST['defined_coords'];
-                if ($coordonnes_definies == 1) { //si checkbox cochée...
+            if ($coordonnes_definies == 1) { //si checkbox cochée...
               // je sauvegarde sa valeur
               update_post_meta($post_id, '_defined_coords', 1);
               //je construis un tableu à partir des coordonnées de l'utilisateur
               $user_coords = explode(',', trim($_POST['_coords']));
-                    $coords = ['lat' => $user_coords[0], 'long' => $user_coords[1]];
+                $coords = ['lat' => $user_coords[0], 'long' => $user_coords[1]];
               // j'update les coordonnées définies par l'utilisateur
               update_post_meta($post_id, '_coords', $coords);
-                } else { // sinon...
+            } else { // sinon...
               //j'update sa valeur
               update_post_meta($post_id, '_defined_coords', 0);
               // je fais le taf' normal
               $coords = get_coords($adresse);
-                    if ($coords != '') {
-                        update_post_meta($post_id, '_coords', $coords);
-                    }
+                if ($coords != '') {
+                    update_post_meta($post_id, '_coords', $coords);
                 }
             }
         }
+    }
 }
