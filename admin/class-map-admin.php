@@ -35,15 +35,14 @@ class map_plugin_admin
          */
         private $version;
 
-         /**
-          * Initialize the class and set its properties.
-          *
-          * @since    1.0.0
-          *
-          * @param      string    $mapPlugin       The name of this plugin.
-          * @param      string    $version    The version of this plugin.
-          */
-
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     *
+     * @param string $mapPlugin The name of this plugin.
+     * @param string $version   The version of this plugin.
+     */
     public function __construct($mapPlugin, $version)
     {
         $this->mapPlugin = $mapPlugin;
