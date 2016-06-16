@@ -212,28 +212,28 @@ class map_plugin_Admin
         register_post_type('store', $args);
     }
 
-    public function save_metabox_store($post_id)
+    public function save_metabox_store($postId)
     {
         $validCivility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
         if ($validCivility) {
             update_post_meta($postId, '_civility', $validCivility);
         }
         if (isset($_POST['last_name'])) {
-            update_post_meta($post_id, '_last_name', sanitize_text_field($_POST['last_name']));
+            update_post_meta($postId, '_last_name', sanitize_text_field($_POST['last_name']));
         }
         if (isset($_POST['first_name'])) {
-            update_post_meta($post_id, '_first_name', sanitize_text_field($_POST['first_name']));
+            update_post_meta($postId, '_first_name', sanitize_text_field($_POST['first_name']));
         }
         if (isset($_POST['mail'])) {
-            update_post_meta($post_id, '_mail', is_email($_POST['mail']));
+            update_post_meta($postId, '_mail', is_email($_POST['mail']));
         }
         if (isset($_POST['phone'])) {
-            update_post_meta($post_id, '_phone', esc_html($_POST['phone']));
+            update_post_meta($postId, '_phone', esc_html($_POST['phone']));
         }
 
         if (isset($_POST['_adress'])) {
             $adresse = wp_strip_all_tags($_POST['_adress']);
-            update_post_meta($post_id, '_adresse', $adresse);
+            update_post_meta($postId, '_adresse', $adresse);
 
             function get_coords($a)
             {
@@ -256,19 +256,19 @@ class map_plugin_Admin
             $coordonnes_definies = $_POST['defined_coords'];
             if ($coordonnes_definies == 1) { //si checkbox cochée...
               // je sauvegarde sa valeur
-              update_post_meta($post_id, '_defined_coords', 1);
+              update_post_meta($postId, '_defined_coords', 1);
               //je construis un tableu à partir des coordonnées de l'utilisateur
               $user_coords = explode(',', trim($_POST['_coords']));
                 $coords = ['lat' => $user_coords[0], 'long' => $user_coords[1]];
               // j'update les coordonnées définies par l'utilisateur
-              update_post_meta($post_id, '_coords', $coords);
+              update_post_meta($postId, '_coords', $coords);
             } else { // sinon...
               //j'update sa valeur
-              update_post_meta($post_id, '_defined_coords', 0);
+              update_post_meta($postId, '_defined_coords', 0);
               // je fais le taf' normal
               $coords = get_coords($adresse);
                 if ($coords != '') {
-                    update_post_meta($post_id, '_coords', $coords);
+                    update_post_meta($postId, '_coords', $coords);
                 }
             }
         }
