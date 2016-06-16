@@ -49,7 +49,7 @@ class plugin_admin
         $this->version = $version;
         add_action('init', [$this, 'cpt_store_init']);
         add_action('add_meta_boxes', [$this, 'initMetaboxes']);
-        add_action('save_post', [$this, 'save_metabox_store']);
+        add_action('save_post', [$this, 'save_metabox']);
     }
 
         /**
@@ -206,7 +206,7 @@ class plugin_admin
         register_post_type('store', $args);
     }
 
-    public function save_metabox_store($postId)
+    public function save_metabox($postId)
     {
         $civility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
         if ($civility) {
@@ -235,8 +235,8 @@ class plugin_admin
 
             function get_coords($arr)
             {
-                $map_url = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($arr).'&sensor=false';
-                $request = wp_remote_get($map_url);
+                $mapUrl = 'http://maps.google.com/maps/api/geocode/json?address='.urlencode($arr).'&sensor=false';
+                $request = wp_remote_get($mapUrl);
                 $json = wp_remote_retrieve_body($request);
 
                 if (empty($json)) {
@@ -251,13 +251,14 @@ class plugin_admin
             }
 
             //je récupère ma checkbox
-            $coordonnes_definies = filter_input(INPUT_POST, 'defined_coords', FILTER_VALIDATE_BOOLEAN);
-            if ($coordonnes_definies == 1) { //si checkbox cochée...
+            $coordonnesDefinies = filter_input(INPUT_POST, 'defined_coords', FILTER_VALIDATE_BOOLEAN);
+            if ($coordonnesDefinies == 1) { //si checkbox cochée...
               // je sauvegarde sa valeur
               update_post_meta($postId, '_defined_coords', 1);
               //je construis un tableu à partir des coordonnées de l'utilisateur
-              $user_coords = explode(',', trim($_POST['_coords']));
-                $coords = ['lat' => $user_coords[0], 'long' => $user_coords[1]];
+              $coordonnesDefinies = filter_input(INPUT_POST, '_coords');
+              $userCoords = explode(',', trim($coordonnesDefinies));
+                $coords = ['lat' => $userCoords[0], 'long' => $userCoords[1]];
               // j'update les coordonnées définies par l'utilisateur
               update_post_meta($postId, '_coords', $coords);
             } else { // sinon...
