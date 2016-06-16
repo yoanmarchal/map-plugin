@@ -41,7 +41,7 @@ class mapPlugin_Public
      * @since    1.0.0
      *
      * @param string $mapPlugin The name of the plugin.
-     * @param string $version    The version of this plugin.
+     * @param string $version   The version of this plugin.
      */
     public function __construct($mapPlugin, $version)
     {
