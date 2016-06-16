@@ -127,9 +127,9 @@ class map_plugin
      */
     private function setLocale()
     {
-        pluginI18n = new map_plugin_i18n();
+        $pluginI18n = new map_plugin_i18n();
 
-        $this->loader->add_action('plugins_loaded', pluginI18n, 'load_plugin_textdomain');
+        $this->loader->add_action('plugins_loaded', $pluginI18n, 'load_plugin_textdomain');
     }
 
     /**
