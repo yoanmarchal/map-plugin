@@ -80,7 +80,7 @@ class map_plugin
      *
      * - map_plugin_loader. Orchestrates the hooks of the plugin.
      * - map_plugin_i18n. Defines internationalization functionality.
-     * - plugin_admin. Defines all hooks for the admin area.
+     * - pluginAdmin. Defines all hooks for the admin area.
      * - map_plugin_public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
@@ -140,7 +140,7 @@ class map_plugin
      */
     private function defineAdminHooks()
     {
-        $pluginAdmin = new plugin_admin($this->getMapPlugin(), $this->getVersion());
+        $pluginAdmin = new pluginAdmin($this->getMapPlugin(), $this->getVersion());
 
         $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueStyles');
         $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueScripts');

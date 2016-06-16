@@ -15,7 +15,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class plugin_admin
+class pluginAdmin
 {
     /**
          * The ID of this plugin.
@@ -49,7 +49,7 @@ class plugin_admin
         $this->version = $version;
         add_action('init', [$this, 'cpt_store_init']);
         add_action('add_meta_boxes', [$this, 'initMetaboxes']);
-        add_action('save_post', [$this, 'save_metabox']);
+        add_action('save_post', [$this, 'saveMetabox']);
     }
 
         /**
@@ -206,7 +206,7 @@ class plugin_admin
         register_post_type('store', $args);
     }
 
-    public function save_metabox($postId)
+    public function saveMetabox($postId)
     {
         $civility = filter_input(INPUT_POST, 'civility', FILTER_SANITIZE_STRING);
         if ($civility) {
