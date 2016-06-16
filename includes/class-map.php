@@ -80,8 +80,8 @@ class map_plugin
      *
      * - map_plugin_loader. Orchestrates the hooks of the plugin.
      * - map_plugin_i18n. Defines internationalization functionality.
-     * - mapPluginAdmin. Defines all hooks for the admin area.
-     * - mapPlugin_Public. Defines all hooks for the public side of the site.
+     * - map_plugin_Admin. Defines all hooks for the admin area.
+     * - map_plugin_public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
@@ -127,9 +127,9 @@ class map_plugin
      */
     private function setLocale()
     {
-        $plugin_i18n = new map_plugin_i18n();
+        pluginI18n = new map_plugin_i18n();
 
-        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+        $this->loader->add_action('plugins_loaded', pluginI18n, 'load_plugin_textdomain');
     }
 
     /**
@@ -140,7 +140,7 @@ class map_plugin
      */
     private function defineAdminHooks()
     {
-        $pluginAdmin = new mapPluginAdmin($this->getMapPlugin(), $this->getVersion());
+        $pluginAdmin = new map_plugin_Admin($this->getMapPlugin(), $this->getVersion());
 
         $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueStyles');
         $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueScripts');
@@ -154,7 +154,7 @@ class map_plugin
      */
     private function definePublicHooks()
     {
-        $pluginPublic = new mapPlugin_Public($this->getMapPlugin(), $this->getVersion());
+        $pluginPublic = new map_plugin_public($this->getMapPlugin(), $this->getVersion());
 
         $this->loader->add_action('wp_enqueueScripts', $pluginPublic, 'enqueueStyles');
         $this->loader->add_action('wp_enqueueScripts', $pluginPublic, 'enqueueScripts');

@@ -15,7 +15,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class mapPluginAdmin
+class map_plugin_Admin
 {
     /**
          * The ID of this plugin.
