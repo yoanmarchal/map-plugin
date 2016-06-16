@@ -15,7 +15,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class map_plugin_admin
+class plugin_admin
 {
     /**
          * The ID of this plugin.
@@ -49,7 +49,7 @@ class map_plugin_admin
         $this->mapPlugin = $mapPlugin;
         $this->version = $version;
         add_action('init', [$this, 'cpt_store_init']);
-        add_action('add_meta_boxes', [$this, 'init_metaboxes']);
+        add_action('add_meta_boxes', [$this, 'initMetaboxes']);
         add_action('save_post', [$this, 'save_metabox_store']);
     }
 
@@ -99,7 +99,7 @@ class map_plugin_admin
             wp_enqueue_script($this->mapPlugin, plugin_dir_url(__FILE__).'js/map-admin.js', ['jquery'], $this->version, false);
         }
 
-    public function init_metaboxes()
+    public function initMetaboxes()
     {
         function store_infos($post)
         {
