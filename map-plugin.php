@@ -69,7 +69,7 @@ require plugin_dir_path(__FILE__).'includes/class-map.php';
  */
 function run_mapPlugin()
 {
-    $plugin = new map_plugin();
+    $plugin = new MapPlugin();
     $plugin->run();
 }
 run_mapPlugin();
