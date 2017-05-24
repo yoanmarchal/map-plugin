@@ -33,24 +33,24 @@ if (!defined('WPINC')) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-map-activator.php.
  */
-function activateMapPlugin()
+function activate_map_plugin()
 {
     require_once plugin_dir_path(__FILE__).'includes/class-map-activator.php';
-    map_plugin_activator::activate();
+    map_plugin_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-map-deactivator.php.
  */
-function deactivateMapPlugin()
+function deactivate_map_plugin()
 {
     require_once plugin_dir_path(__FILE__).'includes/class-map-deactivator.php';
     map_plugin_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activateMapPlugin');
-register_deactivation_hook(__FILE__, 'deactivateMapPlugin');
+register_activation_hook(__FILE__, 'activate_map_plugin');
+register_deactivation_hook(__FILE__, 'deactivate_map_plugin');
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -67,9 +67,9 @@ require plugin_dir_path(__FILE__).'includes/class-map.php';
  *
  * @since    1.0.0
  */
-function run_mapPlugin()
+function run_map_plugin()
 {
-    $plugin = new MapPlugin();
+    $plugin = new map_plugin();
     $plugin->run();
 }
-run_mapPlugin();
+run_map_plugin();
