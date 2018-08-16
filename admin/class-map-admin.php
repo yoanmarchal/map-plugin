@@ -108,6 +108,7 @@ class PluginAdmin
             $adresse = get_post_meta($post->ID, '_adresse', true);
             $mail = get_post_meta($post->ID, '_mail', true);
             $phone = get_post_meta($post->ID, '_phone', true);
+            $special = get_post_meta($post->ID, '_special', true);
 
             $coords = get_post_meta($post->ID, '_coords', true);
             get_post_meta($post->ID, '_defined_coords', true);
@@ -134,14 +135,13 @@ class PluginAdmin
                 <input type="checkbox" name="defined_coords" checked="checked" value="1" id="defined_coords"> <label for="defined_coords">Coordonnées définies manuellement</label>
               </p>
               <p>
-                <input type="text" name="mail" value="<?php echo $mail;
-            ?>" placeholder="<?= __('Email', 'map-plugin');
-            ?>" />
+                <input type="text" name="mail" value="<?= $mail;?>" placeholder="<?= __('Email', 'map-plugin'); ?>" />
               </p>
               <p>
-                <input type="text" name="phone" value="<?php echo $phone;
-            ?>" placeholder="<?= __('Phone', 'map-plugin');
-            ?>" />
+                <input type="text" name="phone" value="<?= $phone;?>" placeholder="<?= __('Phone', 'map-plugin'); ?>" />
+              </p>
+              <p>
+                <input type="text" name="special" value="<?= $special;?>" placeholder="<?= __('Special', 'map-plugin'); ?>" />
               </p>
               <script type="text/javascript">// <![CDATA[
                 jQuery(document).ready(function($){
@@ -227,6 +227,9 @@ class PluginAdmin
         $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
         if ($phone) {
             update_post_meta($postId, '_phone', $phone);
+        }
+        if ($special) {
+            update_post_meta($postId, '_special', $special);
         }
         $adress = filter_input(INPUT_POST, '_adress', FILTER_SANITIZE_STRING);
         if ($adress) {
