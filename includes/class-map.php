@@ -23,7 +23,7 @@
  *
  * @author     Your Name <marchalyoan@gmail.com>
  */
-class MapPlugin
+class map_plugin
 {
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
@@ -31,7 +31,7 @@ class MapPlugin
      *
      * @since    1.0.0
      *
-     * @var MapPluginLoader Maintains and registers all hooks for the plugin.
+     * @var map_plugin_Loader Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -42,7 +42,7 @@ class MapPlugin
      *
      * @var string The string used to uniquely identify this plugin.
      */
-    protected $mapPlugin;
+    protected $map_plugin;
 
     /**
      * The current version of the plugin.
@@ -67,10 +67,10 @@ class MapPlugin
         $this->map_plugin = 'map';
         $this->version = '1.0.0';
 
-        $this->loadDependencies();
-        $this->setLocale();
-        $this->defineAdminHooks();
-        $this->definePublicHooks();
+        $this->load_dependencies();
+        $this->set_locale();
+        $this->define_admin_hooks();
+        $this->define_public_hooks();
     }
 
     /**
@@ -78,17 +78,17 @@ class MapPlugin
      *
      * Include the following files that make up the plugin:
      *
-     * - MapPluginLoader. Orchestrates the hooks of the plugin.
+     * - map_plugin_Loader. Orchestrates the hooks of the plugin.
      * - map_plugin_i18n. Defines internationalization functionality.
-     * - pluginAdmin. Defines all hooks for the admin area.
-     * - map_plugin_public. Defines all hooks for the public side of the site.
+     * - map_plugin_Admin. Defines all hooks for the admin area.
+     * - map_plugin_Public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
      *
      * @since    1.0.0
      */
-    private function loadDependencies()
+    private function load_dependencies()
     {
 
         /**
@@ -114,7 +114,7 @@ class MapPlugin
          */
         require_once plugin_dir_path(dirname(__FILE__)).'public/class-map-public.php';
 
-        $this->loader = new MapPluginLoader();
+        $this->loader = new map_plugin_Loader();
     }
 
     /**
@@ -125,11 +125,11 @@ class MapPlugin
      *
      * @since    1.0.0
      */
-    private function setLocale()
+    private function set_locale()
     {
-        $pluginI18n = new map_plugin_i18n();
+        $plugin_i18n = new map_plugin_i18n();
 
-        $this->loader->add_action('plugins_loaded', $pluginI18n, 'load_plugin_textdomain');
+        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
 
     /**
@@ -138,12 +138,12 @@ class MapPlugin
      *
      * @since    1.0.0
      */
-    private function defineAdminHooks()
+    private function define_admin_hooks()
     {
-        $pluginAdmin = new PluginAdmin($this->getMapPlugin(), $this->getVersion());
+        $plugin_admin = new map_plugin_Admin($this->get_map_plugin(), $this->get_version());
 
-        $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueStyles');
-        $this->loader->add_action('admin_enqueueScripts', $pluginAdmin, 'enqueueScripts');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
     }
 
     /**
@@ -152,12 +152,12 @@ class MapPlugin
      *
      * @since    1.0.0
      */
-    private function definePublicHooks()
+    private function define_public_hooks()
     {
-        $pluginPublic = new map_plugin_public($this->getMapPlugin(), $this->getVersion());
+        $plugin_public = new map_plugin_Public($this->get_map_plugin(), $this->get_version());
 
-        $this->loader->add_action('wp_enqueueScripts', $pluginPublic, 'enqueueStyles');
-        $this->loader->add_action('wp_enqueueScripts', $pluginPublic, 'enqueueScripts');
+        $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+        $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
     }
 
     /**
@@ -178,9 +178,9 @@ class MapPlugin
      *
      * @return string The name of the plugin.
      */
-    public function getMapPlugin()
+    public function get_map_plugin()
     {
-        return $this->mapPlugin;
+        return $this->map_plugin;
     }
 
     /**
@@ -188,9 +188,9 @@ class MapPlugin
      *
      * @since     1.0.0
      *
-     * @return MapPluginLoader Orchestrates the hooks of the plugin.
+     * @return map_plugin_Loader Orchestrates the hooks of the plugin.
      */
-    public function getLoader()
+    public function get_loader()
     {
         return $this->loader;
     }
@@ -202,7 +202,7 @@ class MapPlugin
      *
      * @return string The version number of the plugin.
      */
-    public function getVersion()
+    public function get_version()
     {
         return $this->version;
     }
