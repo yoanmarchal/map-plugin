@@ -79,17 +79,17 @@ class map_plugin_Public
      */
     public function enqueue_scripts()
     {
+        wp_enqueue_script('markerclusterer', 'https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js', [], $this->version, true);
+        wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', [], $this->version, true);
 
         $map_settings = get_option( 'map_settings' );
  
         if (isset($map_settings['google_map_api_key']) && !empty($map_settings['google_map_api_key'])) {
-            $url =  "https://maps.googleapis.com/maps/api/js?key=" . $map_settings['google_map_api_key'];
-            wp_register_script('googlemaps',  $url, [], '', true);
+            $url =  "https://maps.googleapis.com/maps/api/js?key=" . $map_settings['google_map_api_key'] . "&callback=initializeMap";
+            wp_enqueue_script('googlemaps',  $url, [], '', true);
         }
-
-        // https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js
-        wp_enqueue_script('markerclusterer', 'https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js', ['googlemaps'], $this->version, true);
-        wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery', 'googlemaps','markerclusterer'], $this->version, true);
+        
+       
     }
 
     public function register_shortcodes() {

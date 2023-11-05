@@ -148,10 +148,3 @@ function initializeMap() {
 	map.setMapTypeId('map_style');
 
 }
-
-	/*
-	*
-	* Load
-	*
-	*/
-	document.addEventListener('DOMContentLoaded', initializeMap)

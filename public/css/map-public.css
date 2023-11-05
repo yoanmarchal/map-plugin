@@ -3,6 +3,8 @@
  * included in this file.
  */
 
- #map-canvas {
- color: #000;
- }
+#map-canvas {
+  color: #000;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
