@@ -91,4 +91,20 @@ class map_plugin_Public
         wp_enqueue_script('markerclusterer', 'https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js', ['googlemaps'], $this->version, true);
         wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery', 'googlemaps','markerclusterer'], $this->version, true);
     }
+
+    public function register_shortcodes() {
+        add_shortcode( 'map', array( $this, 'show_map' ) );
+    }
+
+    public function show_map( $atts = array() ) {
+        ob_start();
+
+        include plugin_dir_path( __FILE__ ) . 'partials/map-public-display.php';
+
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        return $output;
+
+    }
 }

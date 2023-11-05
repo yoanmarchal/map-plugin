@@ -67,7 +67,7 @@ function initializeMap() {
 		var contentStringSecond = '<p>'	+	item.adress 	+	'</p>';
 		// creation de la info box
 		var infoWindow = new google.maps.InfoWindow({
-			content: contentString + contentStringSecond,
+			content: '<div class="marker-info">' + contentString + contentStringSecond + '</div>',
 			position: new google.maps.LatLng(item.coords[0], item.coords[1]),
 			disableAutoPan: 1
 		});
