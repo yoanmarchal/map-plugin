@@ -87,6 +87,8 @@ class map_plugin_Public
             wp_register_script('googlemaps',  $url, [], '', true);
         }
 
-        wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery', 'googlemaps'], $this->version, true);
+        // https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js
+        wp_enqueue_script('markerclusterer', 'https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js', ['googlemaps'], $this->version, true);
+        wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery', 'googlemaps','markerclusterer'], $this->version, true);
     }
 }

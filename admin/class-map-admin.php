@@ -217,7 +217,7 @@ class map_plugin_Admin
 
         function get_coords($a)
         {
-          $map_url = 'https://api-adresse.data.gouv.fr/search/?q=' . urlencode($a);
+          $map_url = 'https://api-adresse.data.gouv.fr/search/?q=' . urlencode($a). '&limit=1';
 
           $request = wp_remote_get($map_url);
           $json = wp_remote_retrieve_body($request);
@@ -227,8 +227,9 @@ class map_plugin_Admin
           }
 
           $json = json_decode($json);
-          $lat = $json->features[0]->geometry->coordinates[0];
-          $long = $json->features[0]->geometry->coordinates[1];
+
+          $long = $json->features[0]->geometry->coordinates[0];
+          $lat = $json->features[0]->geometry->coordinates[1];
           return compact('lat', 'long');
         }
 

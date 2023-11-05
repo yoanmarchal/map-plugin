@@ -87,6 +87,8 @@ function initializeMap() {
 
 	}).map(function(data){
 
+		console.log(data);
+
 		google.maps.event.addListener(data.marker, 'click', function() {
 
 				if (data.marker.wasClicked) {
@@ -120,6 +122,11 @@ function initializeMap() {
 	markers.forEach(function(marker){
 		bounds.extend(marker.getPosition());
 	});
+
+
+	// Add a marker clusterer to manage the markers.
+	// When adding via unpkg, the MarkerClusterer can be accessed at markerClusterer.MarkerClusterer.
+  new markerClusterer.MarkerClusterer({ markers, map });
 
 	map.fitBounds(bounds);
 
