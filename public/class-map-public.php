@@ -80,18 +80,13 @@ class map_plugin_Public
     public function enqueue_scripts()
     {
 
-        /*
-         * This function is provided for demonstration purposes only.
-         *
-         * An instance of this class should be passed to the run() function
-         * defined in map_plugin_Loader as all of the hooks are defined
-         * in that particular class.
-         *
-         * The map_plugin_Loader will then create the relationship
-         * between the defined hooks and the functions defined in this
-         * class.
-         */
+        $map_settings = get_option( 'map_settings' );
+ 
+        if (isset($map_settings['google_map_api_key']) && !empty($map_settings['google_map_api_key'])) {
+            $url =  "https://maps.googleapis.com/maps/api/js?key=" . $map_settings['google_map_api_key'];
+            wp_register_script('googlemaps',  $url, [], '', true);
+        }
 
-        //wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery'], $this->version, true);
+        wp_enqueue_script($this->map_plugin, plugin_dir_url(__FILE__).'js/map-public.js', ['jquery', 'googlemaps'], $this->version, true);
     }
 }

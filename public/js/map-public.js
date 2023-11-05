@@ -1,4 +1,4 @@
-function initialize() {
+function initializeMap() {
 	'use strict';
 
 	// Create an array of styles.
@@ -48,7 +48,8 @@ function initialize() {
 	};
 
 	// creation de la map
-	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	var domNode = document.getElementById('map-canvas');
+	var map = new google.maps.Map(domNode, mapOptions);
 	var stores = [].slice.call(document.querySelectorAll('.store-item'));
 	var bounds = new google.maps.LatLngBounds();
 
@@ -121,19 +122,14 @@ function initialize() {
 	});
 
 	map.fitBounds(bounds);
-	/*
-	*
-	* Load
-	*
-	*/
-	google.maps.event.addDomListener(window, 'load', initialize);
+
 
 	/*
 	*
 	* rezize
 	*
 	*/
-	google.maps.event.addDomListener(window, "resize", function() {
+	google.maps.event.addListener(window, "resize", function() {
 		var center = map.getCenter();
 		/* google map v3  */
 		google.maps.event.trigger(map, "resize");
@@ -146,16 +142,9 @@ function initialize() {
 
 }
 
-
-function loadScript() {
-
-	'use strict';
-
-	var script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.src = 'https://maps.googleapis.com/maps/api/js?' +
-    'callback=initialize';
-	document.body.appendChild(script);
-}
-
-window.onload = loadScript;
+	/*
+	*
+	* Load
+	*
+	*/
+	document.addEventListener('DOMContentLoaded', initializeMap)
