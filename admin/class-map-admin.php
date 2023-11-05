@@ -311,7 +311,7 @@ class map_plugin_Admin
         add_settings_field(
             'google_map_api_key', // ID
             'Google map api key', // Title
-            [$this, 'facebook_callback'], // Callback
+            [$this, 'googleMapApiKeyCallback'], // Callback
             'map-settings-admin', // Page
             'setting_section_id' // Section
         );
@@ -344,7 +344,7 @@ class map_plugin_Admin
     /**
      * Get the settings option array and print one of its values.
      */
-    public function facebook_callback()
+    public function googleMapApiKeyCallback()
     {
         printf(
             '<input type="text" id="google_map_api_key" name="map_settings[google_map_api_key]" value="%s" />',
