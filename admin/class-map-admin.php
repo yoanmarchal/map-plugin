@@ -303,7 +303,7 @@ class map_plugin_Admin
 
         add_settings_section(
             'setting_section_id', // ID
-            'Liens sociaux', // Title
+            'Réglages', // Title
             [$this, 'print_section_info'], // Callback
             'map-settings-admin' // Page
         );
@@ -338,7 +338,7 @@ class map_plugin_Admin
      */
     public function print_section_info()
     {
-        echo __('Enter your socials links below:');
+        echo __('Enter your vos réglages ci-dessous:');
     }
 
     /**
