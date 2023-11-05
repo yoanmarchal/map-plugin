@@ -11,7 +11,7 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<section id="map-canvas" ></section>
+<section id="map-canvas" data-draggable="true" ></section>
 <div class="row d-flex">
 <?php
   $args = array (
